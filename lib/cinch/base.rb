@@ -22,6 +22,9 @@ module Cinch
     # A Hash holding rules and attributes
     attr_reader :rules
 
+    # Instance of Cinch::Plugins
+    attr_reader :plugins
+
     # A Hash holding listeners and reply Procs
     attr_reader :listeners
 
@@ -67,6 +70,7 @@ module Cinch
       @options = OpenStruct.new(options.merge(cli_ops))
 
       @rules = Rules.new
+      @plugins = Plugins.instance
       @listeners = {}
       @listeners[:ctcp] = {}
 
