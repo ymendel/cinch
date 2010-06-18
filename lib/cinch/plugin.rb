@@ -18,10 +18,6 @@ module Cinch
       @list[plugin]
     end
 
-    def proc_for(plugin)
-      @list[plugin].method(:execute).to_proc
-    end
-
     def each
       @list.each {|k, v| yield k, v }
     end
@@ -49,13 +45,12 @@ module Cinch
       end
     end
 
-    attr_accessor :rule, :options, :keys, :callback
+    attr_accessor :rule, :options, :callback
 
     def initialize
       # plugin options
       @rule = nil
       @options = {}
-      @keys = {}
       @callback = nil
     end
 

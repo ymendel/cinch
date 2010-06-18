@@ -238,6 +238,19 @@ module Cinch
     end
     alias :add_custom_pattern :add_pattern
 
+    # Load all Cinch::Plugins
+    def load_plugins
+      @plugins.each do |plugin, klass|
+        klass.rule ||= plugin
+
+        unless klass.respond_to?(:execute)
+          raise LoadError, "#{plugin} plugin must implement execute method" 
+        end
+
+        plugin(klass.rule, klass.options) { klass.method(:execute).to_proc }
+      end
+    end
+
     # Run run run
     def run
       @irc.connect options.server, options.port
